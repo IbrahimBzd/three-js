@@ -11,16 +11,16 @@ const KEYCLOAK_CONFIG = Object.freeze({
     authority: 'http://localhost:8080/realms/Javatechie/.well-known/openid-configuration',
     client_id: 'sprinboot-keycloak',
     clientId: 'sprinboot-keycloak',
-    redirect_uri: 'http://localhost:3000/',
+    clientSecret: 'XOOSu5cCz6m4dLcEVDuDa3A2yqyLGmEp',
+    redirect_uri: 'http://localhost:3000',
     response_type: 'code',
     scope: 'openid',
-    response_mode: 'fragment',
+    response_mode: 'query',
 });
 
 export function getKeycloakConfig() {
     return KEYCLOAK_CONFIG;
 }
-
 
 export const hasCodeInUrl = (location) => {
     const searchParams = new URLSearchParams(location.search);
@@ -70,7 +70,7 @@ export default function AuthProvider() {
                         newState.state.status === AsyncStateStatus.success &&
                         hasCodeInUrl(window.location)
                     ) {
-                        window.location.pathname = '/';
+                        window.location.pathname = '/'
                     }
                 },
             },
@@ -79,15 +79,16 @@ export default function AuthProvider() {
     );
 
     if (state.status === AsyncStateStatus.success) {
-        return <h1>
-            <a href='https://localhost:8080/auth/realms/Javatechie/protocol/openid-connect/logout'>logout</a>
-            Logged in successfully</h1>;
+        console.log('success', state)
+        return <div>
+            <h1 style={{
+                fontFamily: 'cursive'
+            }}>Logged In Successfully</h1>
+        </div>;
     }
 
     if (state.status === AsyncStateStatus.error) {
-        return <span>            <a
-            href='https://localhost:8080/auth/realms/Javatechie/protocol/openid-connect/logout'>logout</a>
-            The following error occurred: {state.data.toString()}</span>;
+        return <span>The following error occurred: {state.data.toString()}</span>;
     }
 
     return <span>Trying to connect</span>;
