@@ -99,7 +99,9 @@ function animation(time) {
 
     sphereMesh.rotation.x = time / 1500;
     sphereMesh.position.y = Math.abs(Math.sin(step)) / 3
-    // sphereMesh.position.z = time / 4000;
+    cubeMesh.rotation.x = time / 1500;
+    cubeMesh.position.y = Math.abs(Math.sin(step)) / 3
+    // sphereMesh.position.z = time / 3000;
 
     step += speed;
     renderer.render(scene, camera)
